@@ -3,7 +3,7 @@ on:
     branches:
       - main
 
-name: Deploy Classification Model
+name: Build and Deploy Classification Model
 
 jobs:
   build:
@@ -34,6 +34,3 @@ jobs:
 
       - name: Run Docker Container
         run: docker run -d -p 5000:5000 --name classification-model-container kck27/classification-model
-
-
-
