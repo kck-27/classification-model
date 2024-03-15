@@ -1,0 +1,39 @@
+on:
+  push:
+    branches:
+      - main
+
+name: Deploy Classification Model
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+
+      - name: Sign in to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}     
+
+      - name: Build the Docker Image
+        run: docker build -t kck27/classification-model .
+    
+      - name: Push Image to  Docker Hub
+        run: docker push kck27/classification-model:latest 
+
+
+  deploy:
+    needs: build
+
+    runs-on: self-hosted
+
+    steps:
+      - name: Acquire Image from Docker Hub
+        run: docker pull kck27/classification-model:latest
+
+      - name: Run Docker Container
+        run: docker run -d -p 5000:5000 --name classification-model-container kck27/classification-model
+
+
+
