@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout Source Code from Github
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Sign in to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}     
@@ -31,6 +31,9 @@ jobs:
     steps:
       - name: Acquire Image from Docker Hub
         run: docker pull kck27/classification-model:latest
+
+      - name: Delete previous container
+        run: docker rm -f classification-model-container 
 
       - name: Run Docker Container
         run: docker run -d -p 5000:5000 --name classification-model-container kck27/classification-model
