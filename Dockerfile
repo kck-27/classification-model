@@ -9,6 +9,8 @@ SHELL ["conda", "run", "-n", "env", "/bin/bash", "-c"]
 
 COPY . .
 
+RUN pip install --no-cache-dir -r requirements.txt
+
 EXPOSE 5000
 
 ENTRYPOINT ["conda", "run", "-n", "env", "python", "app.py"]
