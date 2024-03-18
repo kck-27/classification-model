@@ -1,4 +1,4 @@
-FROM python:3.11.8-slim as build
+FROM python:3.11.8-alpine
 
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
@@ -9,13 +9,5 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
-FROM python:3.11.8-slim as main
-
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_RUN_PORT=5000
-
-COPY --from=build /app /
-
 EXPOSE 5000
-CMD ["python", "app.py"]
+CMD ["flask", "run"]
