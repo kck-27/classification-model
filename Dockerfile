@@ -6,7 +6,7 @@ ENV FLASK_RUN_PORT=5000
 
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install flask gunicorn pickle-mixin scikit-learn tensorflow tensorflow-text
 COPY . .
 
 EXPOSE 5000
