@@ -9,7 +9,7 @@ SHELL ["conda", "run", "-n", "env", "/bin/bash", "-c"]
 
 COPY . .
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install flask gunicorn pickle-mixin scikit-learn tensorflow tensorflow-text
 
 EXPOSE 5000
 
