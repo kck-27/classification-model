@@ -5,6 +5,10 @@ WORKDIR /app
 COPY environment.yml .
 RUN conda env create -f environment.yml
 
-COPY app.py .
+SHELL ["conda", "run", "-n", "env", "/bin/bash", "-c"]
+
+RUN conda activate env
+
+COPY . .
 
 ENTRYPOINT ["conda", "run", "-n", "env", "python", "app.py"]
