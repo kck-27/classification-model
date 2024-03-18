@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3
+FROM continuumio/miniconda3:4.8.3-alpine
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ SHELL ["conda", "run", "-n", "env", "/bin/bash", "-c"]
 
 COPY . .
 
-RUN pip install flask gunicorn pickle-mixin scikit-learn tensorflow
+RUN pip install flask gunicorn pickle-mixin scikit-learn tensorflow tensorflow-text
 
 EXPOSE 5000
 
