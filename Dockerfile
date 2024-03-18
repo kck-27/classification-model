@@ -19,4 +19,4 @@ COPY --from=build /app /
 
 EXPOSE 5000
 
-ENTRYPOINT ["conda", "run", "-n", "env", "python", "app.py"]
+ENTRYPOINT ["conda", "run", "-n", "env", "flask", "run"]
