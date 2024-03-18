@@ -1,24 +1,17 @@
-FROM continuumio/miniconda3 as build
+FROM python:3.11.8-slim as build
+
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=5000
 
 WORKDIR /app
-
-COPY environment.yml .
-RUN conda env create -f environment.yml
-
-SHELL ["conda", "run", "-n", "env", "/bin/bash", "-c"]
-
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
-RUN pip install flask gunicorn pickle-mixin scikit-learn tensorflow tensorflow-text
-
-
-
-FROM continuumio/miniconda3:23.5.2-0-alpine as main
+FROM python:3.11.8-slim as main
 
 COPY --from=build /app /
 
-SHELL ["conda", "run", "-n", "env", "/bin/bash", "-c"]
-
 EXPOSE 5000
-
-ENTRYPOINT ["python", "app.py"]
+CMD ["flask", "run"]
