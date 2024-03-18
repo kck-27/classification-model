@@ -9,7 +9,7 @@ SHELL ["conda", "run", "-n", "env", "/bin/bash", "-c"]
 
 COPY . .
 
-RUN pip install flask gunicorn pickle-mixin scikit-learn tensorflow tensorflow-text
+RUN pip install flask gunicorn pickle-mixin scikit-learn
 
 EXPOSE 5000
 
