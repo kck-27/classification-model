@@ -1,12 +1,14 @@
-FROM python:3.11.8-slim
+FROM continuumio/miniconda3
 
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_RUN_PORT=5000
+WORKDIR /app
 
-WORKDIR /model
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-EXPOSE 5000
-CMD ["flask", "run"]
+COPY environment.yml .
+RUN conda env create -f environment.yml
+
+RUN conda init bash
+
+RUN conda activate env
+
+COPY app.py .
+
+ENTRYPOINT ["conda", "run", "-n", "env", "python", "app.py"]
