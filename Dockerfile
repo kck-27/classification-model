@@ -1,4 +1,4 @@
-FROM python:3.11.8-alpine3.19
+FROM python:3.11-alpine
 
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
