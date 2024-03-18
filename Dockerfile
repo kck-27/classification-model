@@ -14,4 +14,4 @@ FROM python:3.11.8-slim as main
 COPY --from=build /app /
 
 EXPOSE 5000
-CMD ["flask", "run"]
+CMD ["python", "app.py"]
