@@ -17,6 +17,8 @@ FROM continuumio/miniconda3:23.5.2-0-alpine as main
 
 COPY --from=build /app /
 
+SHELL ["conda", "run", "-n", "env", "/bin/bash", "-c"]
+
 EXPOSE 5000
 
 ENTRYPOINT ["conda", "run", "-n", "env", "python", "app.py"]
