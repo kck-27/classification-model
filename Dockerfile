@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:master-alpine
+FROM continuumio/miniconda3 as build
 
 WORKDIR /app
 
@@ -10,6 +10,12 @@ SHELL ["conda", "run", "-n", "env", "/bin/bash", "-c"]
 COPY . .
 
 RUN pip install flask gunicorn pickle-mixin scikit-learn tensorflow tensorflow-text
+
+
+
+FROM continuumio/miniconda3:23.5.2-0-alpine as main
+
+COPY --from=build /app /
 
 EXPOSE 5000
 
