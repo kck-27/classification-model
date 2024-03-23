@@ -8,7 +8,6 @@ name: Build and Deploy Classification Model
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Source Code from Github
         uses: actions/checkout@v4
@@ -22,12 +21,9 @@ jobs:
       - name: Push Image to  Docker Hub
         run: docker push kck27/classification-model:latest 
 
-
   deploy:
     needs: build
-
     runs-on: self-hosted
-
     steps:
       - name: Acquire Image from Docker Hub
         run: docker pull kck27/classification-model:latest

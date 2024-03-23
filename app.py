@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from utils import make_prediction
-
+from waitress import serve
+from paste.translogger import TransLogger
 
 app = Flask(__name__)
 
@@ -19,4 +20,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    serve(TransLogger(app, setup_console_handler=False), host="0.0.0.0", port="5000")

@@ -13,9 +13,9 @@ encoder_url = hub.load('https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_
 bert_preprocess = hub.KerasLayer(preprocess_url)
 bert_encoder = hub.KerasLayer(encoder_url)
 
-label_file = open("assets/labels.txt", "r")
+label_file = open("assets/label_names.txt", "r")
 label_data = label_file.read()
-labels = label_data.replace('\n', ',').split(',')
+labels = label_data.replace('\n', '*').split('*')
 labels.pop(154)
 
 def make_prediction(text):
